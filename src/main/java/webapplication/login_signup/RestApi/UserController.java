@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("usersRegistration")
+@CrossOrigin(origins = "http://localhost:5000")
 @Validated
 public class UserController {
 

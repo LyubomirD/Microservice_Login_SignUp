@@ -30,9 +30,9 @@ public class UserController {
 
     @GetMapping("/get/{email}/{password}")
     public ResponseEntity<UserModel> getUser(@Valid @PathVariable String email, @Valid @PathVariable String password) {
-        UserModel user = userService.getUserByEmailAndPassword(email, password);
-        if (user != null) {
-            return ResponseEntity.ok(user);
+        UserModel searchedUser = userService.getUserByEmailAndPassword(email, password);
+        if (searchedUser != null) {
+            return ResponseEntity.ok(searchedUser);
         } else {
             return ResponseEntity.notFound().build();
         }

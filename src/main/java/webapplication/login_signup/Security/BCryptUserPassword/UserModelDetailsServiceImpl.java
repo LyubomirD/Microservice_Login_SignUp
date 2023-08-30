@@ -1,9 +1,9 @@
-package webapplication.login_signup.Security;
+package webapplication.login_signup.Security.BCryptUserPassword;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import webapplication.login_signup.CustomException.EmailNotFoundException;
 import webapplication.login_signup.RestApi.UserModel;
 import webapplication.login_signup.RestApi.UserRepository;
 
@@ -16,19 +16,17 @@ public class UserModelDetailsServiceImpl implements UserModelDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        // Retrieve user data from your database
+    public UserDetails loadUserByUsername(String email) throws EmailNotFoundException {
         UserModel user = userRepository.findByEmail(email);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new EmailNotFoundException("User email not found");
         }
 
-        // Construct UserDetails object based on retrieved data
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                new ArrayList<>() // You might need to populate roles and authorities here
+                new ArrayList<>()
         );
     }
 }

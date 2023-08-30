@@ -1,4 +1,4 @@
-package webapplication.login_signup.Security;
+package webapplication.login_signup.Security.BCryptUserPassword;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

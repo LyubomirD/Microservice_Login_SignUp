@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
-import webapplication.login_signup.Security.UserModelDetailsService;
+import webapplication.login_signup.Security.BCryptUserPassword.UserModelDetailsService;
 
 import java.util.List;
 

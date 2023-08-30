@@ -15,9 +15,9 @@ import webapplication.login_signup.Security.BCryptUserPassword.UserModelDetailsS
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private final UserModelDetailsService userModelDetailsService;
 
+    @Autowired
     public SecurityConfiguration(UserModelDetailsService userModelDetailsService) {
         this.userModelDetailsService = userModelDetailsService;
     }
@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/usersRegistration/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic()
+                .httpBasic() // Enable Basic Authentication
                 .and()
                 .cors()
                 .and()

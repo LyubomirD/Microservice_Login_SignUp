@@ -1,7 +1,6 @@
 package webapplication.login_signup.RestApi;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
@@ -23,23 +22,12 @@ public class UserService {
         this.userDetailsService = userDetailsService;
     }
 
-    @Autowired
-
-
     private List<UserModel> listAllUsers() {
         return userRepository.findAll();
     }
 
-    private UserModel getUserEmailAndPassword(String email, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
-        String storedHashedPassword = userDetails.getPassword();
-        boolean matchesPassword = passwordEncoder.matches(password, storedHashedPassword);
-
-        if (!matchesPassword) {
-            return null;
-        }
-
-        return userRepository.findByEmailAndPassword(email, storedHashedPassword);
+    public UserModel getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     private UserModel createNewUser(UserModel userModel) {
@@ -59,10 +47,6 @@ public class UserService {
 
     public List<UserModel> getAllUsers() {
         return listAllUsers();
-    }
-
-    public UserModel getUserByEmailAndPassword(String email, String password) {
-        return getUserEmailAndPassword(email, password);
     }
 
     public UserModel createUser(UserModel userModel) {

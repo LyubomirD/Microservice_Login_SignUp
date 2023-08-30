@@ -28,12 +28,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<UserModel> getUser(@Valid @RequestBody UserModel userModel) {
-        String email = userModel.getEmail();
-        String password = userModel.getPassword();
+    @GetMapping("/login")
+    public ResponseEntity<UserModel> getUser() {
+        String authenticatedUsername = org.springframework.security.core.context.SecurityContextHolder.getContext().getAuthentication().getName();
+        UserModel searchedUser = userService.getUserByEmail(authenticatedUsername);
 
-        UserModel searchedUser = userService.getUserByEmailAndPassword(email, password);
         if (searchedUser != null) {
             return ResponseEntity.ok(searchedUser);
         } else {
@@ -41,7 +40,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/post")
+    @PostMapping("/sign-up")
     public ResponseEntity<UserModel> createUser(@Valid @RequestBody UserModel userModel, BindingResult bindingResult) {
         UserModel createdUser = userService.createUser(userModel);
         if (bindingResult.hasErrors()) {
